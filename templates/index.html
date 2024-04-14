@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank Marketing Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <style>
     //body{
@@ -14,12 +15,21 @@
     .container {
         width: 1000px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 10px;
     }
 
     h1 {
-        margin-left: 50px;
+        margin-left: 10px;
         text-align: center;
+        width: 100%;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    marquee{
+        padding-top: 10px;
     }
 
     form {
@@ -89,13 +99,15 @@
     }
 
     button:hover{
-        background-color: #2a2929;
+        background-color: #3e3c3c;
         cursor: pointer;
     }
 </style>
 <body>
     <div class="container">
-        <h1>Bank Marketing Prediction</h1>
+        <h1>
+            <marquee behavior="" direction="right"><i class="fa-solid fa-person-running fa-beat" style="color: #f10909;"></i>&emsp;&emsp;&emsp;&emsp;&emsp;Bank Marketing Prediction<i class="fa-solid fa-motorcycle fa-horizontal" style="color: #f10909;"></i></marquee>
+        </h1>
         <div class="form-container">
             <form action="/predict" method="post">
                 <div class="form-container__content">
