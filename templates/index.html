@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Marketing Prediction</title>
+</head>
+<style>
+    //body{
+    //    background-image: url("static/background.jpg");
+    //    background-repeat: no-repeat;
+    //    background-position: center;
+    //}
+    .container {
+        width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        margin-left: 50px;
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .form-container {
+        background-color: #f9f9f9;
+        padding: 20px;
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container__content {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+    }
+
+    .form-left, .form-right {
+        font-weight: 600;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+    }
+
+    .form-left__item,
+    .form-right__item{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-left__item label,
+    .form-right__item label{
+        margin-top: 15px;
+    }
+
+    .form-left__item input,
+    .form-right__item input {
+        width: 300px;
+        height: 30px;
+        margin: 8px 0 0 0;
+        border-radius: 10px;
+        padding: 0 0 0 5px;
+    }
+
+    .form-left__item select,
+    .form-right__item select{
+        width: 300px;
+        height: 30px;
+        margin: 8px 0 0 0;
+        border-radius: 10px;
+        border: 2px solid #000;
+    }
+
+    button {
+        width: 30%;
+        height: 40px;
+        color: #fff;
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 20px;
+        background-color: #000;
+    }
+
+    button:hover{
+        background-color: #2a2929;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="container">
+        <h1>Bank Marketing Prediction</h1>
+        <div class="form-container">
+            <form action="/predict" method="post">
+                <div class="form-container__content">
+                    <div class="form-left">
+                        <div class="form-left__item">
+                            <label for="age">Age:</label>
+                            <input type="text" id="age" name="age">
+                        </div>
+                        <div class="form-left__item">
+                            <label for="job">Job:</label>
+                            <select id="job" name="job">
+                                <option selected="True" disabled>Choose a job</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Blue-collar">Blue-collar</option>
+                                <option value="Entrepreneur">Entrepreneur</option>
+                                <option value="Housemaid">Housemaid</option>
+                                <option value="Management">Management</option>
+                                <option value="Retired">Retired</option>
+                                <option value="Self-employed">Self-employed</option>
+                                <option value="Services">Services</option>
+                                <option value="Student">Student</option>
+                                <option value="Technician">Technician</option>
+                                <option value="Unemployed">Unemployed</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                        <div class="form-left__item">
+                            <label for="marital">Marital Status:</label>
+                            <select id="marital" name="marital">
+                                <option selected="True" disabled>Choos marital</option>
+                                <option value="Divorced">Divorced</option>
+                                <option value="Married">Married</option>
+                                <option value="Single">Single</option>
+                            </select>
+                        </div>
+                        <div class="form-left__item">
+                            <label for="education">Education:</label>
+                            <select id="education" name="education">
+                                <option selected="True" disabled>Choose education</option>
+                                <option value="Primary">Primary</option>
+                                <option value="Secondary">Secondary</option>
+                                <option value="Tertiary">Tertiary</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                        <div class="form-left__item">
+                            <label for="credit">Have a credit card?</label>
+                            <input type="checkbox" id="credit" name="credit">
+                        </div>
+                        <div class="form-left__item">
+                            <label for="balance">Balance:</label>
+                            <input type="text" id="balance" name="balance">
+                        </div>
+                        <div class="form-left__item">
+                            <label for="housing">Housing Loan:</label>
+                            <input type="checkbox" id="housing" name="housing">
+                        </div>
+                    </div>
+                    <div class="form-right">
+                        <div class="form-right__item">
+                            <label for="loan">Personal Loan:</label>
+                            <input type="checkbox" id="loan" name="loan">
+                        </div>
+                        <div class="form-right__item">
+                            <label for="month">Last Month Contact:</label>
+                            <select id="month" name="month">
+                                <option selected="True" disabled>Choose last month contact</option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                         <div class="form-right__item">
+                            <label for="duration">Time Contact: </label>
+                            <input type="text" id="duration" name="duration">
+                        </div>
+                         <div class="form-right__item">
+                            <label for="campaign">Number of Contact:</label>
+                            <input type="text" id="campaign" name="campaign">
+                        </div> <div class="form-right__item">
+                            <label for="pdays">Number of days</label>
+                            <input type="text" id="pdays" name="pdays">
+                        </div> <div class="form-right__item">
+                            <label for="previous">Number of time contact previous:</label>
+                            <input type="text" id="previous" name="previous">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit">Predict</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
