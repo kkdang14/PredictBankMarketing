@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer, make_column_transformer
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, BaggingClassifier
 
@@ -20,19 +21,8 @@ print(X.count())
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 
-# Preprocess categorical variables
-categorical_features = X_train.select_dtypes(include=['object']).columns
-numeric_features = X_train.select_dtypes(include=['int64', 'float64']).columns
-
-preprocessor = ColumnTransformer(
-    transformers=[
-        ('num', 'passthrough', numeric_features),
-        ('cat', OneHotEncoder(handle_unknown='ignore'), categorical_features)
-    ])
-
 # Define the classifier pipeline
-clf = Pipeline(steps=[('preprocessor', preprocessor),
-                      ('classifier', RandomForestClassifier())])
+clf = BaggingClassifier(estimator=DecisionTreeClassifier(), n_estimators=300, random_state=42)
 
 # Train the classifier
 clf.fit(X_train, y_train)

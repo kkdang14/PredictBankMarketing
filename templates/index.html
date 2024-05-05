@@ -15,7 +15,6 @@
     .container {
         width: 1000px;
         margin: 0 auto;
-        padding: 10px;
     }
 
     h1 {
@@ -94,7 +93,6 @@
         color: #fff;
         border-radius: 8px;
         text-align: center;
-        margin-top: 20px;
         background-color: #000;
     }
 
@@ -106,7 +104,9 @@
 <body>
     <div class="container">
         <h1>
-            <marquee behavior="" direction="right"><i class="fa-solid fa-person-running fa-beat" style="color: #f10909;"></i>&emsp;&emsp;&emsp;&emsp;&emsp;Bank Marketing Prediction<i class="fa-solid fa-motorcycle fa-horizontal" style="color: #f10909;"></i></marquee>
+            Bank Marketing Prediction
+            <!--
+            <marquee behavior="" direction="right"><i class="fa-solid fa-person-running fa-beat" style="color: #f10909; font-size: 19px"></i>&emsp;&emsp;&emsp;&emsp;&emsp;Bank Marketing Prediction<i class="fa-solid fa-van-shuttle" style="color: #f10909;"></i></marquee>-->
         </h1>
         <div class="form-container">
             <form action="/predict" method="post">
@@ -205,6 +205,7 @@
                         </div>
                     </div>
                 </div>
+                <h3 style="font-family: Arial, sans-serif">Has the client subscribed a term deposit?</h3>
                 <button type="submit">Predict</button>
             </form>
         </div>
