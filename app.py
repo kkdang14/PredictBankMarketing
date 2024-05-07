@@ -1,13 +1,10 @@
 from flask import Flask, render_template, request
 
 import pandas as pd
-from sklearn.pipeline import Pipeline
-from sklearn.compose import ColumnTransformer, make_column_transformer
-from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier, BaggingClassifier
-
+from sklearn.ensemble import BaggingClassifier
+import pickle
 
 app = Flask(__name__, template_folder='templates')
 
@@ -20,12 +17,14 @@ print(X.count())
 # Split data into train and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-
 # Define the classifier pipeline
 clf = BaggingClassifier(estimator=DecisionTreeClassifier(), n_estimators=300, random_state=42)
 
 # Train the classifier
 clf.fit(X_train, y_train)
+
+# with open('trained_model.pkl.pkl', 'rb') as file:
+#     random_forest_model = pickle.load(file)
 
 
 @app.route('/')
@@ -52,83 +51,37 @@ def predict():
         previous = int(request.form['previous'])
 
         def switch_job(job):
-            if job == 'Admin':
-                return 0
-            elif job == 'Blue-collar ':
-                return 1
-            elif job == 'Entrepreneur':
-                return 2
-            elif job == 'Housemaid':
-                return 3
-            elif job == 'Management':
-                return 4
-            elif job == 'Retired':
-                return 5
-            elif job == 'Self-employed':
-                return 6
-            elif job == 'Services':
-                return 7
-            elif job == 'Student':
-                return 8
-            elif job == 'Technician':
-                return 9
-            elif job == 'Unemployed':
-                return 10
-            elif job == 'Unknown':
-                return 11
-        def switch_marital(marital):
-            if marital == 'Divorced':
-                return 0
-            elif marital == 'Married':
-                return 1
-            elif marital == 'Single':
-                return 2
-        def switch_education(edu):
-            if edu == 'Primary':
-                return 0
-            elif edu == 'Secondary':
-                return 1
-            elif edu == 'Tertiary':
-                return 2
-            elif edu == 'Unknown':
-                return 3
-        def switch_YN(opt):
-            if opt == True:
-                return 1
-            else: return 0
-        def swtich_month(mm):
-            if mm == 'April':
-                return 0
-            elif mm == 'August':
-                return 1
-            elif mm == 'December':
-                return 2
-            elif mm == 'February':
-                return 3
-            elif mm == 'January':
-                return 4
-            elif mm == 'July':
-                return 5
-            elif mm == 'June':
-                return 6
-            elif mm == 'March':
-                return 7
-            elif mm == 'May':
-                return 8
-            elif mm == 'November':
-                return 9
-            elif mm == 'October':
-                return 10
-            elif mm == 'September':
-                return 11
+            job_mapping = {'Admin': 0, 'Blue-collar': 1, 'Entrepreneur': 2, 'Housemaid': 3,
+                           'Management': 4, 'Retired': 5, 'Self-employed': 6, 'Services': 7,
+                           'Student': 8, 'Technician': 9, 'Unemployed': 10, 'Unknown': 11}
+            return job_mapping.get(job, 11)  # Return 11 if job not found
 
+        def switch_marital(marital):
+            marital_mapping = {'Divorced': 0, 'Married': 1, 'Single': 2}
+            return marital_mapping.get(marital, 2)  # Return 2 if marital not found
+
+        def switch_education(edu):
+            education_mapping = {'Primary': 0, 'Secondary': 1, 'Tertiary': 2, 'Unknown': 3
+                                 }
+            return education_mapping.get(edu, 3)  # Return 3 if education not found
+
+        def switch_YN(opt):
+            return int(opt)  # Convert True/False to 1/0 directly
+
+        def switch_month(mm):
+            month_mapping = {'April': 0, 'August': 1, 'December': 2, 'February': 3,
+                             'January': 4, 'July': 5, 'June': 6, 'March': 7,
+                             'May': 8, 'November': 9, 'October': 10, 'September': 11}
+            return month_mapping.get(mm, 11)  # Return 11 if month not found
+
+        # Usage of switch functions
         job = switch_job(job)
         marital = switch_marital(marital)
         education = switch_education(education)
         credit = switch_YN(credit)
         housing = switch_YN(housing)
         loan = switch_YN(loan)
-        month = swtich_month(month)
+        month = switch_month(month)
 
         # Preprocess the input data
         input_data = pd.DataFrame({
